@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.kamath.bookdigest.screens.HomeScreen
 import com.kamath.bookdigest.screens.LoginScreen
 import com.kamath.bookdigest.screens.SignUpScreen
 import com.kamath.bookdigest.ui.theme.BookDigestTheme
@@ -23,12 +24,15 @@ fun MyApp(){
             color = MaterialTheme.colorScheme.background
         ) {
             val navController = rememberNavController()
-            NavHost(navController = navController, startDestination = Routes.SignUpScreen.route){
+            NavHost(navController = navController, startDestination = Routes.HomeScreen.route){
                 composable(Routes.SignUpScreen.route) {
                     SignUpScreen(navController)
                 }
                 composable(Routes.LoginScreen.route) {
                     LoginScreen(navController)
+                }
+                composable(Routes.HomeScreen.route){
+                    HomeScreen(navController)
                 }
             }
         }

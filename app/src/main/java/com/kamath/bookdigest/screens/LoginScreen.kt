@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.kamath.bookdigest.Routes
 
 @Composable
 fun LoginScreen(navController: NavController){
@@ -45,7 +46,11 @@ fun LoginScreen(navController: NavController){
             leadingIcon = { Icon(Icons.Default.AccountBox, contentDescription = null) }
         )
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                      navController.navigate(Routes.HomeScreen.route){
+                          launchSingleTop = true
+                      }
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp, 20.dp),
