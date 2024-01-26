@@ -1,7 +1,8 @@
 package com.kamath.bookdigest.data
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.time.LocalDate
-import java.util.Date
 
 data class User(
     val id:String,
@@ -11,7 +12,7 @@ data class User(
     val listedBook: Book
 )
 
-data class Book(
+data class Book @RequiresApi(Build.VERSION_CODES.O) constructor(
     val id:String,
     val isbn:String,
     val bookTitle:String,
@@ -20,7 +21,8 @@ data class Book(
     val format:String,
     val listedDate:LocalDate,
     val published:LocalDate,
-    val condition:String
+    val condition:String,
+    val maxReturnDate:LocalDate = LocalDate.MAX
 )
 
 data class Author(

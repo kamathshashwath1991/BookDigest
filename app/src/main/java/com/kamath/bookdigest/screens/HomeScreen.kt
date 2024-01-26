@@ -14,16 +14,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.kamath.bookdigest.UserListItem
 import com.kamath.bookdigest.viewModels.UserViewModel
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HomeScreen(navController: NavController,
-    userViewModel: UserViewModel = viewModel()
-){
+fun HomeScreen(){
+    val userViewModel:UserViewModel = hiltViewModel()
     val userList by userViewModel.userList.observeAsState(emptyList())
 
 

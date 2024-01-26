@@ -1,17 +1,15 @@
 package com.kamath.bookdigest.viewModels
-
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kamath.bookdigest.data.Book
 import com.kamath.bookdigest.data.User
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDate
-import java.util.Date
+import javax.inject.Inject
 
-@RequiresApi(Build.VERSION_CODES.O)
-class UserViewModel:ViewModel() {
+@HiltViewModel
+class UserViewModel @Inject constructor():ViewModel() {
     private val _userList = MutableLiveData<List<User>>()
     val userList:LiveData<List<User>> get() = _userList
 
@@ -24,5 +22,8 @@ class UserViewModel:ViewModel() {
             )),
 
         )
+    }
+    fun getUserById(userId:String):User?{
+       return _userList.value?.find { it.id == userId }
     }
 }
