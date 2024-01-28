@@ -5,11 +5,11 @@ import androidx.annotation.RequiresApi
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.LocalDate
-@Entity(tableName = "users")
+
 data class User(
-    @PrimaryKey val id: String,
+    val id: String,
     val username:String,
-    val listOfBooks:List<String>,//temporary String, later to be changed to Book type
+    val listOfBooks:List<String>,// temporary String, later to be changed to Book type
     val rating:Int,
     val listedBook: Book
 )

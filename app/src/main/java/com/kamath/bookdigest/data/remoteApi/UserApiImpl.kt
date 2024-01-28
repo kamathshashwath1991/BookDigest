@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class UserApiImpl {
     companion object{
-        private const val BASE_URL = ""
+        private const val BASE_URL = "https://test.com"
     }
 
     fun create():UserApi{
