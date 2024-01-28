@@ -1,11 +1,13 @@
-package com.kamath.bookdigest.data
+package com.kamath.bookdigest.data.model
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.time.LocalDate
-
+@Entity(tableName = "users")
 data class User(
-    val id:String,
+    @PrimaryKey val id: String,
     val username:String,
     val listOfBooks:List<String>,//temporary String, later to be changed to Book type
     val rating:Int,

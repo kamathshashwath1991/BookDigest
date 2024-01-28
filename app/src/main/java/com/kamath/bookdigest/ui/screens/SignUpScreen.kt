@@ -1,12 +1,13 @@
-package com.kamath.bookdigest.screens
+package com.kamath.bookdigest.ui.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -20,19 +21,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.kamath.bookdigest.Routes
+import com.kamath.bookdigest.appEntry.Routes
 
 @Composable
-fun LoginScreen(navController: NavController){
+fun SignUpScreen(navController: NavController){
+    var email by remember {
+        mutableStateOf("")
+    }
     var username by remember {
         mutableStateOf("")
     }
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(16.dp)) {
+        OutlinedTextField(
+            value = email,
+            onValueChange = {email = it},
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            label = { Text("Email")},
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Email
+            ),
+            leadingIcon = { Icon(Icons.Default.Email, contentDescription = null) }
+        )
         OutlinedTextField(
             value = username,
             onValueChange = {username = it},
@@ -47,7 +60,7 @@ fun LoginScreen(navController: NavController){
         )
         Button(
             onClick = {
-                      navController.navigate(Routes.HomeScreen.route){
+                      navController.navigate(Routes.LoginScreen.route){
                           launchSingleTop = true
                       }
             },
@@ -55,7 +68,8 @@ fun LoginScreen(navController: NavController){
                 .fillMaxWidth()
                 .padding(8.dp, 20.dp),
         ) {
-            Text(text = "Login")
+            Text(text = "Sign Up")
         }
     }
+
 }

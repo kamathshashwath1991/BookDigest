@@ -1,4 +1,4 @@
-package com.kamath.bookdigest
+package com.kamath.bookdigest.appEntry
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
