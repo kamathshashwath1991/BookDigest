@@ -1,11 +1,23 @@
 package com.kamath.bookdigest.data.model
 
 import android.os.Build
+import android.os.Message
 import androidx.annotation.RequiresApi
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.LocalDate
 
+
+data class SignInResult(
+    val data : UserData?,
+    val errorMessage: String?
+)
+
+data class UserData(
+    val userId:String,
+    val username:String,
+    val profilePictureUrl:String
+)
 data class User(
     val id: String,
     val username:String,
