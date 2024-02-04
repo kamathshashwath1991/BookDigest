@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "789428223952",
+    "project_id": "bookdigest-43eaa",
+    "storage_bucket": "bookdigest-43eaa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789428223952:android:3c57d1e779e54fbcea43d5",
+        "android_client_info": {
+          "package_name": "com.kamath.bookdigest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "789428223952-5bpsgrlrt1tmcvhkj4lg74bfguiascbl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kamath.bookdigest",
+            "certificate_hash": "634d0c71254d35591fef103b288f432f726e7a6c"
+          }
+        },
+        {
+          "client_id": "789428223952-4e93dukl3viv34d7dr3rtrduf4666f4d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfebT-KckzI78mCtieTUBtUS4RjIa9u64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "789428223952-4e93dukl3viv34d7dr3rtrduf4666f4d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
