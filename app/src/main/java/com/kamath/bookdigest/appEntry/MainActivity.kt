@@ -58,14 +58,14 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
                     val scaffoldState = rememberBottomSheetScaffoldState()
-                    NavHost(navController = navController, startDestination = Routes.HomeScreen.route){
+                    NavHost(navController = navController, startDestination = Routes.MainScreen.route){
                         composable(Routes.SignInScreen.route){
                             val viewModel = viewModel<SignInViewModel>()
                             val state by viewModel.state.collectAsStateWithLifecycle()
 
                             LaunchedEffect(key1 = Unit) {
                                 if(googleSignInClient.getSignedInUser() != null) {
-                                    navController.navigate(Routes.HomeScreen.route)
+                                    navController.navigate(Routes.MainScreen.route)
                                 }
                             }
 
@@ -91,7 +91,7 @@ class MainActivity : ComponentActivity() {
                                         Toast.LENGTH_LONG
                                     ).show()
 
-                                    navController.navigate(Routes.HomeScreen.route)
+                                    navController.navigate(Routes.MainScreen.route)
                                     viewModel.resetState()
                                 }
                             }
@@ -111,7 +111,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
-                        composable(Routes.HomeScreen.route){
+                        composable(Routes.MainScreen.route){
                             MainScreen(navController)
                         }
                     }
