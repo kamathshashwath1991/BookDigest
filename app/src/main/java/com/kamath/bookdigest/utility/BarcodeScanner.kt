@@ -12,8 +12,7 @@ class BarcodeScanner(appContext: Context) {
     val TAG = "BARCODE SCANNER"
     val options = GmsBarcodeScannerOptions.Builder()
         .setBarcodeFormats(
-            Barcode.TYPE_ISBN)
-        .enableAutoZoom()
+            Barcode.FORMAT_ALL_FORMATS)//this needs to be changed to only isbn detection
         .build()
 
     val scanner = GmsBarcodeScanning.getClient(appContext,options)
