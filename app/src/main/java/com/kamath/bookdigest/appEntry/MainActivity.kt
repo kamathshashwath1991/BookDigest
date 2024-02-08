@@ -26,11 +26,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.auth.api.identity.Identity
-import com.kamath.bookdigest.ui.screens.HomeScreen
+import com.kamath.bookdigest.ui.screens.MainScreen
 import com.kamath.bookdigest.ui.screens.LoginScreen
 import com.kamath.bookdigest.ui.screens.SignInScreen
 import com.kamath.bookdigest.ui.screens.SignUpScreen
-import com.kamath.bookdigest.ui.screens.UserDetailScreen
 import com.kamath.bookdigest.ui.theme.BookDigestTheme
 import com.kamath.bookdigest.utility.GoogleSignInClient
 import com.kamath.bookdigest.viewModels.SignInViewModel
@@ -113,7 +112,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(Routes.HomeScreen.route){
-                            HomeScreen(navController)
+                            MainScreen(navController)
                         }
                     }
                 }

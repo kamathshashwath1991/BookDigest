@@ -1,15 +1,18 @@
 package com.kamath.bookdigest.modules
 
 //import com.kamath.bookdigest.data.dao.UserDao
+import android.content.Context
 import com.kamath.bookdigest.data.remoteApi.UserApi
 import com.kamath.bookdigest.data.remoteApi.UserApiImpl
 //import com.kamath.bookdigest.database.AppDatabase
 import com.kamath.bookdigest.repository.UserRepository
+import com.kamath.bookdigest.utility.BarcodeScanner
 import com.kamath.bookdigest.viewModels.UserViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
@@ -39,5 +42,8 @@ object UserModule {
     fun provideUserRepository(userApiService: UserApi): UserRepository {
         return UserRepository(userApiService)
     }
+
+    @Provides
+    fun provideBarcodeScanner(@ApplicationContext appContext: Context) = BarcodeScanner(appContext)
 
 }
