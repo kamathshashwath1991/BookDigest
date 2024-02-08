@@ -46,7 +46,7 @@ fun LoginScreen(navController: NavController){
         )
         Button(
             onClick = {
-                      navController.navigate(Routes.HomeScreen.route){
+                      navController.navigate(Routes.MainScreen.route){
                           launchSingleTop = true
                       }
             },

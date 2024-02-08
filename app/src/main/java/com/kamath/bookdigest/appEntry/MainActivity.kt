@@ -26,11 +26,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.auth.api.identity.Identity
-import com.kamath.bookdigest.ui.screens.HomeScreen
+import com.kamath.bookdigest.ui.screens.MainScreen
 import com.kamath.bookdigest.ui.screens.LoginScreen
 import com.kamath.bookdigest.ui.screens.SignInScreen
 import com.kamath.bookdigest.ui.screens.SignUpScreen
-import com.kamath.bookdigest.ui.screens.UserDetailScreen
 import com.kamath.bookdigest.ui.theme.BookDigestTheme
 import com.kamath.bookdigest.utility.GoogleSignInClient
 import com.kamath.bookdigest.viewModels.SignInViewModel
@@ -59,14 +58,14 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
                     val scaffoldState = rememberBottomSheetScaffoldState()
-                    NavHost(navController = navController, startDestination = Routes.HomeScreen.route){
+                    NavHost(navController = navController, startDestination = Routes.MainScreen.route){
                         composable(Routes.SignInScreen.route){
                             val viewModel = viewModel<SignInViewModel>()
                             val state by viewModel.state.collectAsStateWithLifecycle()
 
                             LaunchedEffect(key1 = Unit) {
                                 if(googleSignInClient.getSignedInUser() != null) {
-                                    navController.navigate(Routes.HomeScreen.route)
+                                    navController.navigate(Routes.MainScreen.route)
                                 }
                             }
 
@@ -92,7 +91,7 @@ class MainActivity : ComponentActivity() {
                                         Toast.LENGTH_LONG
                                     ).show()
 
-                                    navController.navigate(Routes.HomeScreen.route)
+                                    navController.navigate(Routes.MainScreen.route)
                                     viewModel.resetState()
                                 }
                             }
@@ -112,8 +111,8 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
-                        composable(Routes.HomeScreen.route){
-                            HomeScreen(navController)
+                        composable(Routes.MainScreen.route){
+                            MainScreen(navController)
                         }
                     }
                 }

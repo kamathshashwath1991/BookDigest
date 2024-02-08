@@ -1,12 +1,14 @@
 package com.kamath.bookdigest.ui.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
@@ -15,13 +17,13 @@ import androidx.compose.material.icons.automirrored.outlined.Feed
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Sell
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Camera
-import androidx.compose.material.icons.outlined.Feed
 import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Sell
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -31,22 +33,29 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import com.kamath.bookdigest.ui.listItem.UserListItem
 import com.kamath.bookdigest.ui.screens.common.TabItem
+import com.kamath.bookdigest.utility.BarcodeScanner
 import com.kamath.bookdigest.viewModels.UserViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(navController: NavHostController){
+fun MainScreen(navController: NavHostController){
     val userViewModel:UserViewModel = hiltViewModel()
     val userList by userViewModel.userList.observeAsState(emptyList())
-
+    
     val tabItems = listOf<TabItem>(
         TabItem(title = "Home", unselectedItem = Icons.Outlined.Home, selectedItem = Icons.Filled.Home),
         TabItem(title = "Feed", unselectedItem = Icons.AutoMirrored.Outlined.Feed, selectedItem = Icons.AutoMirrored.Filled.Feed),
@@ -54,6 +63,7 @@ fun HomeScreen(navController: NavHostController){
         TabItem(title = "Account", unselectedItem = Icons.Outlined.AccountCircle, selectedItem = Icons.Filled.AccountCircle)
 
     )
+    val barcodeScanner = BarcodeScanner(LocalContext.current)
 
     Column(
         modifier = Modifier
@@ -66,6 +76,7 @@ fun HomeScreen(navController: NavHostController){
         val pagerState = rememberPagerState {
             tabItems.size
         }
+
         LaunchedEffect(selectedTabIndex){
             pagerState.animateScrollToPage(selectedTabIndex)
         }
@@ -83,7 +94,13 @@ fun HomeScreen(navController: NavHostController){
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ){
-                Text(text = tabItems[index].title)
+                when (index) {
+                    2 -> ScanBarcode(
+                        onScanBarcode = { barcodeScanner.startScan() },
+                        barcodeValue = barcodeScanner.barCodeResults.collectAsStateWithLifecycle().value
+                    )
+                    else -> Text(tabItems[index].title)
+                }
             }
 
         }
@@ -93,6 +110,7 @@ fun HomeScreen(navController: NavHostController){
                     selected = index == selectedTabIndex,
                     onClick = {
                         selectedTabIndex = index
+
                     },
                     text = { Text(text = tabItem.title)},
                     icon = {
@@ -108,14 +126,48 @@ fun HomeScreen(navController: NavHostController){
                 )
             }
         }
+    }
+}
 
-//        LazyColumn{
-//            items(userList) { user ->
-//                UserListItem(
-//                    user,
-//                    onItemClick = { userId -> navController.navigate("userDetail/$userId") }
-//                )
-//            }
-//        }
+@Composable
+fun ScanBarcode(
+    onScanBarcode: suspend () -> Unit,
+    barcodeValue: String?
+) {
+    val scope = rememberCoroutineScope()
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+
+        Button(
+            modifier = Modifier
+                .fillMaxWidth(.85f),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Black
+            ),
+            onClick = {
+                scope.launch {
+                    onScanBarcode()
+                }
+            }) {
+            Text(
+                text = "Scan Barcode",
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.displayMedium,
+                //style = TextStyle(fontWeight = FontWeight.Bold)
+            )
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Text(
+            text = barcodeValue ?: "0000000000",
+            style = MaterialTheme.typography.displayMedium
+        )
+
     }
 }
