@@ -1,7 +1,7 @@
 package com.kamath.bookdigest.viewModels
 
 import androidx.lifecycle.ViewModel
-import com.kamath.bookdigest.data.model.SignInResult
+//import com.kamath.bookdigest.data.model.SignInResult
 import com.kamath.bookdigest.data.state.SignInState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,13 +15,13 @@ class SignInViewModel @Inject constructor():ViewModel() {
     private val _state = MutableStateFlow(SignInState())
     val state = _state.asStateFlow()
 
-    fun onSignInResult(result: SignInResult){
-        _state.update {it.copy(
-            isSignInSuccessful = result.data!=null,
-            signInError = result.errorMessage
-            )
-        }
-    }
+//    fun onSignInResult(result: SignInResult){
+//        _state.update {it.copy(
+//            isSignInSuccessful = result.data!=null,
+//            signInError = result.errorMessage
+//            )
+//        }
+//    }
 
     fun resetState(){
         _state.update {
