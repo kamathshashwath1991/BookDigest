@@ -40,11 +40,11 @@ object AppModule {
     @Provides
     fun providesBooksRepository(bookApiService: GoogleBooksApiService) = BookRepository(bookApiService)
 
-    @Singleton
-    @Provides
-    fun provideApiKey():String{
-        return "AIzaSyAAd_g0si8fpOSaBlIA7fMe4xRYme0ebSM"
-    }
+//    @Singleton
+//    @Provides
+//    fun provideApiKey():String{
+//        return "AIzaSyAAd_g0si8fpOSaBlIA7fMe4xRYme0ebSM"
+//    }
     @Provides
     fun provideBarcodeScanner(@ApplicationContext appContext: Context) = BarcodeScanner(appContext)
 

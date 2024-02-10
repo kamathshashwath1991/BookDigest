@@ -1,5 +1,6 @@
 package com.kamath.bookdigest.utility
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kamath.bookdigest.viewModels.BooksViewModel
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
 @Composable
 fun ScanBarcode(
@@ -29,6 +31,13 @@ fun ScanBarcode(
 ) {
     val scope = rememberCoroutineScope()
     val booksViewModel: BooksViewModel = hiltViewModel()
+    val TAG = "SCAN_BARCODE"
+    if (barcodeValue != null) {
+        // Call searchBookByIsbn when barcodeValue is not null
+        LaunchedEffect(barcodeValue) {
+            booksViewModel.searchBookByIsbn(barcodeValue)
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -36,11 +45,7 @@ fun ScanBarcode(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        LaunchedEffect(barcodeValue){
-            if (barcodeValue!=null){
-                booksViewModel.searchBookByIsbn(barcodeValue)
-            }
-        }
+
         Button(
             modifier = Modifier
                 .fillMaxWidth(.85f),

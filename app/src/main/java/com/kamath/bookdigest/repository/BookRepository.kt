@@ -10,7 +10,7 @@ import javax.inject.Singleton
 class BookRepository @Inject constructor(
     private val bookService: GoogleBooksApiService
 ) {
-    private val TAG = "BOOK REPOSITORY"
+    private val TAG = "BOOK_REPOSITORY"
      suspend fun getBookInfoByIsbn(isbn:String): BookDetailsResponse {
          Log.d(TAG, "getBookInfoByIsbn: Inside repo")
         return bookService.getBookInfoByIsbn(isbn,"AIzaSyAAd_g0si8fpOSaBlIA7fMe4xRYme0ebSM")
