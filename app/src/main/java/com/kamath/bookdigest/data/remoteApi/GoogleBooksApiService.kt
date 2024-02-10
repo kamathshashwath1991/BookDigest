@@ -12,5 +12,4 @@ interface GoogleBooksApiService {
         @Query("key") apiKey: String
     ): BookDetailsResponse
 
-
 }

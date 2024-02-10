@@ -11,12 +11,15 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.kamath.bookdigest.viewModels.BooksViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -25,6 +28,7 @@ fun ScanBarcode(
     barcodeValue: String?
 ) {
     val scope = rememberCoroutineScope()
+    val booksViewModel: BooksViewModel = hiltViewModel()
 
     Column(
         modifier = Modifier
@@ -32,7 +36,11 @@ fun ScanBarcode(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-
+        LaunchedEffect(barcodeValue){
+            if (barcodeValue!=null){
+                booksViewModel.searchBookByIsbn(barcodeValue)
+            }
+        }
         Button(
             modifier = Modifier
                 .fillMaxWidth(.85f),

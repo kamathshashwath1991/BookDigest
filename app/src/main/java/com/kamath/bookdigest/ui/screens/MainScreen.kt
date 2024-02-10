@@ -37,6 +37,7 @@ import androidx.navigation.NavHostController
 import com.kamath.bookdigest.ui.screens.common.TabItem
 import com.kamath.bookdigest.utility.BarcodeScanner
 import com.kamath.bookdigest.utility.ScanBarcode
+import com.kamath.bookdigest.viewModels.BooksViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

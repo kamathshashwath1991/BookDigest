@@ -13,6 +13,8 @@ class BooksViewModel @Inject constructor(private val bookRepository: BookReposit
 
     private val TAG = "BOOKS_VIEW_MODEL"
     fun searchBookByIsbn(isbn:String){
+        Log.d(TAG, "searchBookByIsbn: ")
+
         viewModelScope.launch {
             try {
                 val bookDetails = bookRepository.getBookInfoByIsbn(isbn)
