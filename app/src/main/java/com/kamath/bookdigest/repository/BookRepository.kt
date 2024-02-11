@@ -19,7 +19,6 @@ class BookRepository @Inject constructor(
     }
     suspend fun getBookDetails(isbn: String): BookDetailsResponse? {
         val response = booksApiService.getBookDetails(isbn)
-        Log.d(TAG, "getBookDetails: ${response}")
         return if (response.isSuccessful) {
             response.body()
         } else {
