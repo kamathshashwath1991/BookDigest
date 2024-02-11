@@ -29,12 +29,14 @@ fun ScanBarcode(
     onScanBarcode: suspend () -> Unit,
     barcodeValue: String?
 ) {
+    val TAG = "SCAN_BARCODE"
     val scope = rememberCoroutineScope()
     val booksViewModel: BooksViewModel = hiltViewModel()
-    val TAG = "SCAN_BARCODE"
+    Log.d(TAG, "ScanBarcode: inside scanbarcode")
     if (barcodeValue != null) {
         // Call searchBookByIsbn when barcodeValue is not null
         LaunchedEffect(barcodeValue) {
+            Log.d(TAG, "ScanBarcode: Calling the api from ui")
             booksViewModel.searchBookByIsbn(barcodeValue)
         }
     }

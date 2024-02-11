@@ -2,17 +2,28 @@ package com.kamath.bookdigest.repository
 
 import android.util.Log
 import com.kamath.bookdigest.data.model.BookDetailsResponse
-import com.kamath.bookdigest.data.remoteApi.GoogleBooksApiService
+import com.kamath.bookdigest.data.remoteApi.BooksApiService
+import com.kamath.bookdigest.utility.RetrofitClient
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class BookRepository @Inject constructor(
-    private val bookService: GoogleBooksApiService
+    private val retrofitClient: RetrofitClient
 ) {
     private val TAG = "BOOK_REPOSITORY"
-     suspend fun getBookInfoByIsbn(isbn:String): BookDetailsResponse {
-         Log.d(TAG, "getBookInfoByIsbn: Inside repo")
-        return bookService.getBookInfoByIsbn(isbn,"AIzaSyAAd_g0si8fpOSaBlIA7fMe4xRYme0ebSM")
+
+    private val retrofit = retrofitClient.create()
+    private val booksApiService: BooksApiService by lazy {
+        retrofit.create(BooksApiService::class.java)
+    }
+    suspend fun getBookDetails(isbn: String): BookDetailsResponse? {
+        val response = booksApiService.getBookDetails(isbn)
+        Log.d(TAG, "getBookDetails: ${response}")
+        return if (response.isSuccessful) {
+            response.body()
+        } else {
+            null
+        }
     }
 }

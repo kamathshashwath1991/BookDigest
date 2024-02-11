@@ -17,10 +17,10 @@ class BooksViewModel @Inject constructor(private val bookRepository: BookReposit
 
         viewModelScope.launch {
             try {
-                val bookDetails = bookRepository.getBookInfoByIsbn(isbn)
-                Log.d(TAG, "searchBookByIsbn: ${bookDetails.volumeInfo.title}")
+                val bookDetails = bookRepository.getBookDetails(isbn)
+                Log.d(TAG, "searchBookByIsbn: ${bookDetails}")
             }catch (e:Exception){
-                Log.d(TAG, "searchBookByIsbn: Issue with calling Books API")
+                Log.d(TAG, "searchBookByIsbn: Issue with calling Books API ${e}")
             }
         }
     }
