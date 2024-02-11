@@ -11,4 +11,3 @@ interface BooksApiService {
         @Path("isbn") isbn: String
     ): Response<BookDetailsResponse>
 }
-//https://www.googleapis.com/books/v1/volumes?q=&key=yourAPIKey
