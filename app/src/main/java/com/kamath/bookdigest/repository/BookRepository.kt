@@ -13,16 +13,17 @@ class BookRepository @Inject constructor(
 ) {
     private val TAG = "BOOK_REPOSITORY"
 
-    private val retrofit = retrofitClient.create()
+   /* private val retrofit = retrofitClient.create()
     private val booksApiService: BooksApiService by lazy {
         retrofit.create(BooksApiService::class.java)
-    }
+    }*/
     suspend fun getBookDetails(isbn: String): BookDetailsResponse? {
-        val response = booksApiService.getBookDetails(isbn)
+        val response = retrofitClient.getBookDetails(isbn)
         return if (response.isSuccessful) {
             response.body()
         } else {
             null
         }
     }
+
 }
