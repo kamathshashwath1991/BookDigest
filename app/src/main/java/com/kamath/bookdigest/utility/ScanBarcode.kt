@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,11 +33,13 @@ fun ScanBarcode(
     val TAG = "SCAN_BARCODE"
     val scope = rememberCoroutineScope()
     val booksViewModel: BooksViewModel = hiltViewModel()
-    Log.d(TAG, "ScanBarcode: inside scanbarcode")
+    // Observe bookDetailsLiveData
+    val bookDetails = booksViewModel.bookDetailLiveData.observeAsState()
+    val bookName = bookDetails.value?.book?.title
+
     if (barcodeValue != null) {
         // Call searchBookByIsbn when barcodeValue is not null
         LaunchedEffect(barcodeValue) {
-            Log.d(TAG, "ScanBarcode: Calling the api from ui")
             booksViewModel.searchBookByIsbn(barcodeValue)
         }
     }
@@ -68,9 +71,8 @@ fun ScanBarcode(
         }
 
         Spacer(modifier = Modifier.height(20.dp))
-
         Text(
-            text = barcodeValue ?: "0000000000",
+            text = bookName ?: "",
             style = MaterialTheme.typography.displayMedium
         )
 
