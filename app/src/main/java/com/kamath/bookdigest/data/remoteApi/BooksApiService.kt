@@ -8,7 +8,7 @@ import retrofit2.http.Path
 
 interface BooksApiService {
     @GET("book/{isbn}")
-    suspend fun <T> getBookDetails(
+    suspend fun getBookDetails(
         @Path("isbn") isbn: String
-    ): ApiResponse<T>
+    ): Response<BookDetailsResponse>
 }

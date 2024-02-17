@@ -6,6 +6,7 @@ import com.kamath.bookdigest.data.model.BookDetailsResponse
 import com.kamath.bookdigest.data.remoteApi.BooksApiService
 import javax.inject.Inject
 import javax.inject.Singleton
+import retrofit2.Response
 
 @Singleton
 class BookRepository @Inject constructor(
@@ -13,17 +14,19 @@ class BookRepository @Inject constructor(
 ) {
     private val TAG = "BOOK_REPOSITORY"
 
-    suspend fun getBookDetails(isbn: String): ApiResponse<BookDetailsResponse> {
-        return try {
-            val response = booksApiService.getBookDetails<BookDetailsResponse>(isbn)
-            if (response.data!=null) {
-                val bookDetails = response.data
-                ApiResponse(data = bookDetails, error = null)
+    suspend fun getBookDetails(isbn: String): BookDetailsResponse? {
+        try {
+            val response: Response<BookDetailsResponse> = booksApiService.getBookDetails(isbn)
+            if (response.isSuccessful) {
+                val bookDetails = response.body()
+                Log.d(TAG, "getBookDetails successful: $bookDetails")
+                return bookDetails
             } else {
-                ApiResponse(data = null, error = Exception("Failed to fetch book details"))
+                Log.e(TAG, "getBookDetails unsuccessful: ${response.code()}")
             }
         } catch (e: Exception) {
-            ApiResponse(data = null, error = e)
+            Log.e(TAG, "getBookDetails failed: ${e.message}", e)
         }
+        return null
     }
 }
