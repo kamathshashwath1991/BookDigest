@@ -1,7 +1,6 @@
 package com.kamath.bookdigest.repository
 
 import android.util.Log
-import com.kamath.bookdigest.data.model.ApiResponse
 import com.kamath.bookdigest.data.model.BookDetailsResponse
 import com.kamath.bookdigest.data.remoteApi.BooksApiService
 import javax.inject.Inject
