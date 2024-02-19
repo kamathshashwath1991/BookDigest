@@ -1,4 +1,5 @@
 package com.kamath.bookdigest.utility
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,6 +35,7 @@ fun ScanBarcode(
 
     if (barcodeValue != null) {
         LaunchedEffect(barcodeValue) {
+            Log.d("TEST", "ScanBarcode: ")
             booksViewModel.searchBookByIsbn(barcodeValue)
         }
     }
