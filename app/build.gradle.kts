@@ -135,6 +135,10 @@ dependencies {
 
     //barcode scanner
     implementation("com.google.android.gms:play-services-code-scanner:16.1.0")
+
+    //image loader
+    implementation("io.coil-kt:coil-compose:1.4.0")
+
 }
 kapt {
     correctErrorTypes = true
