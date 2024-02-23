@@ -33,47 +33,54 @@ import com.kamath.bookdigest.data.model.Book
 fun BookDetails(book:Book){
     Box(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .padding(16.dp)
     ) {
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            elevation = CardDefaults.cardElevation()
+        Column(
+            modifier = Modifier
+                .padding(8.dp)
         ) {
-            Row(modifier = Modifier.fillMaxWidth()) {
-                // Book image on the left side
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .aspectRatio(1f)
-                ) {
-                    // You can replace this with your actual book image loading logic
-                    CoilImage(url = book.image!!)
-                }
+            Text(text = "Is this the book you scanned?")
+            Spacer(modifier = Modifier.height(8.dp))
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                elevation = CardDefaults.cardElevation()
+            ) {
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    // Book image on the left side
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .aspectRatio(1f)
+                    ) {
+                        // You can replace this with your actual book image loading logic
+                        CoilImage(url = book.image!!)
+                    }
 
-                // Book details on the right side in a column
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(8.dp)
-                ) {
-                    Text(
-                        text = "Name: ${book.title}",
-                        style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.primary),
-                        textAlign = TextAlign.Start
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = "Author: ${book.authors}",
-                        style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.primary),
-                        textAlign = TextAlign.Start
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = "ISBN: ${book.isbn}",
-                        style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.primary),
-                        textAlign = TextAlign.Start
-                    )
+                    // Book details on the right side in a column
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(8.dp)
+                    ) {
+                        Text(
+                            text = "Name: ${book.title}",
+                            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.primary),
+                            textAlign = TextAlign.Start
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "Author: ${book.authors}",
+                            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.primary),
+                            textAlign = TextAlign.Start
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "ISBN: ${book.isbn}",
+                            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.primary),
+                            textAlign = TextAlign.Start
+                        )
+                    }
                 }
             }
         }
