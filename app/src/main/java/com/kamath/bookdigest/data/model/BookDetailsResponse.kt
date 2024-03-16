@@ -41,7 +41,3 @@ data class OtherIsbn(
 )
 
 
-data class ApiResponse<T>(
-    val data: T?,
-    val error: Throwable?
-)
