@@ -1,7 +1,8 @@
 package com.kamath.bookdigest.modules
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.kamath.bookdigest.data.remoteApi.BooksApiService
+import com.kamath.bookdigest.data.remoteApi.IsbnApiService
+import com.kamath.bookdigest.data.remoteApi.Neo4jApiService
 import com.kamath.bookdigest.repository.BookRepository
 import dagger.Module
 import dagger.Provides
@@ -11,6 +12,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -40,8 +42,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-
+    @Named("isbnRetrofit")
+    fun provideIsbnRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api2.isbndb.com/")
             .client(okHttpClient)
@@ -51,13 +53,30 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): BooksApiService {
-        return retrofit.create(BooksApiService::class.java)
+    @Named("neo4jRetrofit")
+    fun provideNeo4jRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("http://localhost:3000/") // Adjust the base URL as needed
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
 
     @Provides
     @Singleton
-    fun provideBooksRepository(apiService: BooksApiService) = BookRepository(apiService)
+    fun provideApiService(@Named("isbnRetrofit")retrofit: Retrofit): IsbnApiService {
+        return retrofit.create(IsbnApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNeo4jApiService(@Named("neo4jRetrofit") retrofit: Retrofit): Neo4jApiService {
+        return retrofit.create(Neo4jApiService::class.java)
+    }
+    @Provides
+    @Singleton
+    fun provideBooksRepository(isbnApiService: IsbnApiService,
+                               neo4jApiService: Neo4jApiService) = BookRepository(isbnApiService,neo4jApiService)
 
     @Provides
     fun provideGson(): Gson {
