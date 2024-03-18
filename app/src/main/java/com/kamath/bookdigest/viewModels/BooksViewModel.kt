@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kamath.bookdigest.data.model.BookDetailsResponse
+import com.kamath.bookdigest.data.model.BookNeo
 import com.kamath.bookdigest.repository.BookRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -38,4 +39,24 @@ class BooksViewModel @Inject constructor(private val bookRepository: BookReposit
         }
     }
 
+    fun createBook(){
+        viewModelScope.launch {
+            try{
+                val book = BookNeo(
+                    title = "To Kill a Mockingbird",
+                    author = "Harper Lee",
+                    year = 1960,
+                    genre = "Fiction",
+                    pages = 281,
+                    isbn = "9780061120084",
+                    publishedDate = "1960-07-11",
+                    originalCost = 12.95
+                )
+                val postBook = bookRepository.createBook(book);
+                postBook.let { Log.d(TAG, "createBook: Book has been created") }
+            }catch (e:Exception){
+                Log.e(TAG, "createBook: Issue while creating book" )
+            }
+        }
+    }
 }

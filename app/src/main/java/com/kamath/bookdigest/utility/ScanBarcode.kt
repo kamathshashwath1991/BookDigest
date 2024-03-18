@@ -64,6 +64,23 @@ fun ScanBarcode(
                     style = MaterialTheme.typography.displayMedium,
                 )
             }
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth(.85f),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Black
+                ),
+                onClick = {
+                    scope.launch {
+                        booksViewModel.createBook()
+                    }
+                }) {
+                Text(
+                    text = "Post",
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.displayMedium,
+                )
+            }
         }else{
             BookDetails(book = book!!)
         }
