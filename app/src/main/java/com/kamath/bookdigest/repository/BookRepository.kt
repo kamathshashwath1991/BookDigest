@@ -1,6 +1,7 @@
 package com.kamath.bookdigest.repository
 
 import android.util.Log
+import android.widget.Toast
 import com.kamath.bookdigest.data.model.BookDetailsResponse
 import com.kamath.bookdigest.data.model.BookNeo
 import com.kamath.bookdigest.data.remoteApi.IsbnApiService
@@ -32,16 +33,16 @@ class BookRepository @Inject constructor(
         return null
     }
 
-    suspend fun createBook(book: BookNeo):String?{
-        try{
-
-            val response:Response<String> = neo4jApiService.createBook(book)
-            if (response.isSuccessful){
-                return "Book posted"
+    suspend fun createBook(book: BookNeo){
+        try {
+            val response = neo4jApiService.createBook(book)
+            if (response.isSuccessful) {
+                // Response is successful, extract and return the response body
+                Log.d(TAG, "API call is successful:")
             }
-        }catch(e:Exception){
-            Log.e(TAG, "createBook: ${e.message}",e );
+        } catch (e: Exception) {
+            // Exception occurred, log the error
+            Log.e(TAG, "API call is unsuccessful:")
         }
-        return null;
     }
 }

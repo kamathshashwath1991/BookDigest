@@ -7,5 +7,5 @@ import retrofit2.http.POST
 
 interface Neo4jApiService {
     @POST("createBook")
-    suspend fun createBook(@Body book: BookNeo): Response<String>
+    suspend fun createBook(@Body book: BookNeo): Response<List<String>>
 }

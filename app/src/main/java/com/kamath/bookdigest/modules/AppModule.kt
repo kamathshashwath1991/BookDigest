@@ -56,7 +56,7 @@ object AppModule {
     @Named("neo4jRetrofit")
     fun provideNeo4jRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://localhost:3000/") // Adjust the base URL as needed
+            .baseUrl("http://10.0.2.2:3000/") // Adjust the base URL as needed
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

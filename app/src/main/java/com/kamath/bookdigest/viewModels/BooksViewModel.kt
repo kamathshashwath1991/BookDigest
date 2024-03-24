@@ -45,15 +45,14 @@ class BooksViewModel @Inject constructor(private val bookRepository: BookReposit
                 val book = BookNeo(
                     title = "To Kill a Mockingbird",
                     author = "Harper Lee",
-                    year = 1960,
+                    year = "1960",
                     genre = "Fiction",
-                    pages = 281,
+                    pages = "281",
                     isbn = "9780061120084",
                     publishedDate = "1960-07-11",
-                    originalCost = 12.95
+                    originalCost = "12.95"
                 )
-                val postBook = bookRepository.createBook(book);
-                postBook.let { Log.d(TAG, "createBook: Book has been created") }
+                bookRepository.createBook(book).let { Log.d(TAG, "createBook: Book is posted!") }
             }catch (e:Exception){
                 Log.e(TAG, "createBook: Issue while creating book" )
             }
