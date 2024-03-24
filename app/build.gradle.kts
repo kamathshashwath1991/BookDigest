@@ -22,6 +22,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        manifestPlaceholders["networkSecurityConfig"] = "@xml/network_security_config"
     }
 
     buildTypes {
