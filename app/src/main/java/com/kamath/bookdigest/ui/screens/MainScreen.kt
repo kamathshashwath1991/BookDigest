@@ -45,7 +45,7 @@ fun MainScreen(){
 
     val tabItems = listOf<TabItem>(
         TabItem(title = "Home", unselectedItem = Icons.Outlined.Home, selectedItem = Icons.Filled.Home),
-        TabItem(title = "Feed", unselectedItem = Icons.AutoMirrored.Outlined.Feed, selectedItem = Icons.AutoMirrored.Filled.Feed),
+        TabItem(title = "Thread", unselectedItem = Icons.AutoMirrored.Outlined.Feed, selectedItem = Icons.AutoMirrored.Filled.Feed),
         TabItem(title = "Sell", unselectedItem = Icons.Outlined.Camera, selectedItem = Icons.Filled.Camera),
         TabItem(title = "Account", unselectedItem = Icons.Outlined.AccountCircle, selectedItem = Icons.Filled.AccountCircle)
 
@@ -82,6 +82,7 @@ fun MainScreen(){
                 contentAlignment = Alignment.Center
             ){
                 when (index) {
+                    0 -> HomeScreen()
                     2 -> ScanBarcode(
                         onScanBarcode = { barcodeScanner.startScan() },
                         barcodeValue = barcodeScanner.barCodeResults.collectAsStateWithLifecycle().value
