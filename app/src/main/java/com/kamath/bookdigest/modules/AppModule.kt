@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder
 import com.kamath.bookdigest.data.remoteApi.IsbnApiService
 import com.kamath.bookdigest.data.remoteApi.Neo4jApiService
 import com.kamath.bookdigest.repository.BookRepository
+import com.kamath.bookdigest.repository.HomeScreenRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -77,6 +78,10 @@ object AppModule {
     @Singleton
     fun provideBooksRepository(isbnApiService: IsbnApiService,
                                neo4jApiService: Neo4jApiService) = BookRepository(isbnApiService,neo4jApiService)
+
+    @Provides
+    @Singleton
+    fun provideHomeScreenRepository(neo4jApiService: Neo4jApiService) = HomeScreenRepository(neo4jApiService)
 
     @Provides
     fun provideGson(): Gson {
