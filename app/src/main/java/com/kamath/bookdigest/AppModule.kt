@@ -1,4 +1,4 @@
-package com.kamath.bookdigest.modules
+package com.kamath.bookdigest
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.kamath.bookdigest.data.remoteApi.IsbnApiService
