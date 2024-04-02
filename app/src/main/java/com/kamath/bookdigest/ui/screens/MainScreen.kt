@@ -87,6 +87,7 @@ fun MainScreen(){
                         onScanBarcode = { barcodeScanner.startScan() },
                         barcodeValue = barcodeScanner.barCodeResults.collectAsStateWithLifecycle().value
                     )
+                    3-> AccountScreen()
                     else -> Text(tabItems[index].title)
                 }
             }
