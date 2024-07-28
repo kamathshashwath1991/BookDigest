@@ -8,6 +8,7 @@ import javax.inject.Inject
 
 class HomeScreenRepository @Inject constructor(private val neo4jApiService: Neo4jApiService){
     private val TAG = "HOME_SCREEN_REPO"
+
     suspend fun getAllBooks():List<BookNeo>?{
         try{
             val response:Response<List<BookNeo>> = neo4jApiService.getAllBooks()
@@ -24,4 +25,24 @@ class HomeScreenRepository @Inject constructor(private val neo4jApiService: Neo4
         }
         return null
     }
+
+    suspend fun getGenres():List<String>?
+    {
+        try{
+            val response:Response<List<String>> = neo4jApiService.getGenres()
+            if (response.isSuccessful){
+                val genres = response.body()
+                Log.d(TAG,"All Genres are retrieved for this account : $response")
+                return genres
+            }else{
+                Log.d(TAG, "getGenres: ${response.code()}")
+            }
+        }
+        catch(e:Exception)
+        {
+        Log.e(TAG, "getGenres: ${e.message}", )
+        }
+        return null
+    }
+
 }

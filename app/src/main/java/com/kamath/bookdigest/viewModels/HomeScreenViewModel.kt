@@ -13,8 +13,13 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(private val homeScreenRepository: HomeScreenRepository):ViewModel(){
  private val TAG = "HOMESCREEN_VIEW_MODEL"
-    private val _homeScreenLiveData = MutableLiveData<List<BookNeo?>>()
-    val _getHomeScreenLiveData:LiveData<List<BookNeo?>> get() = _homeScreenLiveData
+
+    private val _booksLiveData = MutableLiveData<List<BookNeo?>>()
+    val _getBooksLiveData:LiveData<List<BookNeo?>> get() = _booksLiveData
+
+    private val _genresLiveData = MutableLiveData<List<String>>()
+    val _getGenresLiveData:LiveData<List<String>> get() = _genresLiveData
+
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData:LiveData<String> get() = _errorLiveData
     
@@ -24,7 +29,7 @@ class HomeScreenViewModel @Inject constructor(private val homeScreenRepository: 
                 val homeScreenBooks = homeScreenRepository.getAllBooks()
                 homeScreenBooks.let { 
                     try{
-                        _homeScreenLiveData.value = it
+                        _booksLiveData.value = it
                     }
                     catch (e:Exception){
                         _errorLiveData.value = "Error ${e.message}"
@@ -33,6 +38,25 @@ class HomeScreenViewModel @Inject constructor(private val homeScreenRepository: 
             }
             catch (e:Exception){
                 Log.e(TAG, "getAllBooks: Issue calling getAllBooks API", )
+            }
+        }
+    }
+
+    fun getGenres(){
+        viewModelScope.launch {
+            try{
+                val genres = homeScreenRepository.getGenres()
+                genres.let {
+                    try{
+                        _genresLiveData.value = it
+                    }
+                    catch (e:Exception){
+                        _errorLiveData.value = "Error ${e.message}"
+                    }
+                }
+            }
+            catch (e:Exception){
+                Log.e(TAG, "getGenres: Issue calling getGenres API", )
             }
         }
     }

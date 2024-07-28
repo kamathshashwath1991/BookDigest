@@ -11,4 +11,6 @@ interface Neo4jApiService {
     suspend fun createBook(@Body book: BookNeo): Response<List<String>>
     @GET("books")
     suspend fun getAllBooks():Response<List<BookNeo>>
+    @GET("genres")
+    suspend fun getGenres():Response<List<String>>
 }
