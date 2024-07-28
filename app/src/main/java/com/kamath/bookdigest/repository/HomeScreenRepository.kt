@@ -9,40 +9,37 @@ import javax.inject.Inject
 class HomeScreenRepository @Inject constructor(private val neo4jApiService: Neo4jApiService){
     private val TAG = "HOME_SCREEN_REPO"
 
-    suspend fun getAllBooks():List<BookNeo>?{
-        try{
-            val response:Response<List<BookNeo>> = neo4jApiService.getAllBooks()
-            if (response.isSuccessful){
+    suspend fun getAllBooks(): List<BookNeo>? {
+        return try {
+            val response: Response<List<BookNeo>> = neo4jApiService.getAllBooks()
+            if (response.isSuccessful) {
                 val books = response.body()
-                Log.d(TAG,"All Books are retrieved for this account : $response")
-                return books
+                Log.d(TAG, "All Books are retrieved: $books")
+                books
+            } else {
+                Log.e(TAG, "Error in getAllBooks: ${response.code()} - ${response.message()}")
+                null
             }
-            else{
-                Log.d(TAG, "getAllBooks: ${response.code()}")
-            }
-        }catch (e:Exception){
-            Log.e(TAG, "getAllBooks: ${e.message}", )
+        } catch (e: Exception) {
+            Log.e(TAG, "Exception in getAllBooks", e)
+            null
         }
-        return null
     }
 
-    suspend fun getGenres():List<String>?
-    {
-        try{
-            val response:Response<List<String>> = neo4jApiService.getGenres()
-            if (response.isSuccessful){
+    suspend fun getGenres(): List<String>? {
+        return try {
+            val response: Response<List<String>> = neo4jApiService.getGenres()
+            if (response.isSuccessful) {
                 val genres = response.body()
-                Log.d(TAG,"All Genres are retrieved for this account : $response")
-                return genres
-            }else{
-                Log.d(TAG, "getGenres: ${response.code()}")
+                Log.d(TAG, "All Genres are retrieved: $genres")
+                genres
+            } else {
+                Log.e(TAG, "Error in getGenres: ${response.code()} - ${response.message()}")
+                null
             }
+        } catch (e: Exception) {
+            Log.e(TAG, "Exception in getGenres", e)
+            null
         }
-        catch(e:Exception)
-        {
-        Log.e(TAG, "getGenres: ${e.message}", )
-        }
-        return null
     }
-
 }
