@@ -15,12 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun GenreCard(genre: String, onGenreSelected:(String)->Unit) {
+fun GenreCard(genre: String) {
     Card(
         modifier = Modifier
             .padding(8.dp)
-            .size(100.dp)
-            .clickable { onGenreSelected(genre) },
+            .size(100.dp),
+           // .clickable { onGenreSelected(genre) },
         elevation = CardDefaults.cardElevation(),
         shape = RoundedCornerShape(8.dp)
     ) {

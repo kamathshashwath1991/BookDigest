@@ -2,6 +2,7 @@ package com.kamath.bookdigest.repository
 
 import android.util.Log
 import com.kamath.bookdigest.data.model.BookNeo
+import com.kamath.bookdigest.data.model.Genre
 import com.kamath.bookdigest.data.remoteApi.Neo4jApiService
 import retrofit2.Response
 import javax.inject.Inject
@@ -26,9 +27,9 @@ class HomeScreenRepository @Inject constructor(private val neo4jApiService: Neo4
         }
     }
 
-    suspend fun getGenres(): List<String>? {
+    suspend fun getGenres(): List<Genre>? {
         return try {
-            val response: Response<List<String>> = neo4jApiService.getGenres()
+            val response: Response<List<Genre>> = neo4jApiService.getGenres()
             if (response.isSuccessful) {
                 val genres = response.body()
                 Log.d(TAG, "All Genres are retrieved: $genres")

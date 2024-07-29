@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kamath.bookdigest.data.model.BookNeo
+import com.kamath.bookdigest.data.model.Genre
 import com.kamath.bookdigest.repository.HomeScreenRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,8 +18,8 @@ class HomeScreenViewModel @Inject constructor(private val homeScreenRepository: 
     private val _booksLiveData = MutableLiveData<List<BookNeo?>>()
     val _getBooksLiveData:LiveData<List<BookNeo?>> get() = _booksLiveData
 
-    private val _genresLiveData = MutableLiveData<List<String>>()
-    val _getGenresLiveData:LiveData<List<String>> get() = _genresLiveData
+    private val _genresLiveData = MutableLiveData<List<Genre>>()
+    val _getGenresLiveData:LiveData<List<Genre>> get() = _genresLiveData
 
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData:LiveData<String> get() = _errorLiveData

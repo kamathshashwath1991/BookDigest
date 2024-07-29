@@ -11,7 +11,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import com.kamath.bookdigest.data.model.BookNeo
+import com.kamath.bookdigest.data.model.Genre
 import com.kamath.bookdigest.ui.screens.common.BookCard
+import com.kamath.bookdigest.ui.screens.common.GenreCard
 
 
 @Composable
@@ -22,10 +24,12 @@ fun HomeScreen(){
     val genresLiveData = viewModel._getGenresLiveData
 
     val books = remember { mutableStateOf(emptyList<BookNeo>()) }
-    val genres = remember { mutableStateOf(emptyList<String>()) }
+    val genres = remember { mutableStateOf(emptyList<Genre>()) }
 
-    LaunchedEffect(booksLiveData,genresLiveData){
+    LaunchedEffect(booksLiveData){
         viewModel.getAllBooks()
+    }
+    LaunchedEffect(genresLiveData) {
         viewModel.getGenres()
     }
     booksLiveData.observeAsState().value?.let {
@@ -37,7 +41,7 @@ fun HomeScreen(){
     LazyRow {
         items(genres.value.size) {
             Log.d(TAG, "HomeScreen: ${genres.value[it]}")
-            Text(text = genres.value[it])
+           GenreCard(genre = genres.value[it].name)
         }
     }
 //    LazyColumn {
