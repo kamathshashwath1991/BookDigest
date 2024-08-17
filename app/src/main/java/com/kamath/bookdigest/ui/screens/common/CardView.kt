@@ -1,5 +1,6 @@
 package com.kamath.bookdigest.ui.screens.common
 
+import BookNeo
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kamath.bookdigest.data.model.BookNeo
 
 @Composable
 fun BookCard(book: BookNeo) {
@@ -29,42 +29,12 @@ fun BookCard(book: BookNeo) {
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            Text(text = book.title, style = MaterialTheme.typography.titleMedium)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "Author: ${book.author}",
-                style = MaterialTheme.typography.bodySmall
-            )
+            Text(text = book.name, style = MaterialTheme.typography.titleMedium)
             Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "Published Year: ${book.year}",
-                style = MaterialTheme.typography.bodySmall
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "Genre: ${book.genre}",
-                style = MaterialTheme.typography.bodySmall
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "Pages: ${book.pages}",
-                style = MaterialTheme.typography.bodySmall
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "ISBN: ${book.isbn}",
-                style = MaterialTheme.typography.bodySmall
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "Published Date: ${book.publishedDate}",
-                style = MaterialTheme.typography.bodySmall
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "Original Cost: \$${book.originalCost}",
-                style = MaterialTheme.typography.bodySmall
-            )
+//            Text(
+//                text = "Original Cost: \$${book.originalCost}",
+//                style = MaterialTheme.typography.bodySmall
+//            )
         }
     }
 }

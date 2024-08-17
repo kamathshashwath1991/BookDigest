@@ -1,14 +1,30 @@
-package com.kamath.bookdigest.data.model
-
-import com.google.gson.annotations.SerializedName
-
 data class BookNeo(
-    @SerializedName("title") val title: String,
-    @SerializedName("author") val author: String,
-    @SerializedName("year") val year: String,
-    @SerializedName("genre") val genre: String,
-    @SerializedName("pages") val pages: String,
-    @SerializedName("isbn") val isbn: String,
-    @SerializedName("publishedDate") val publishedDate: String,
-    @SerializedName("originalCost") val originalCost: String
+ val publisher: String,
+ val synopsis: String,
+ val language: String,
+ val image: String,
+ val titleLong: String,
+ val dimensions: DimensionsStructured,
+ val pages: String,
+ val datePublished: String,
+ val subjects: List<String>,
+ val authors: List<String>,
+ val name: String,
+ val isbn13: String,
+ val msrp: String,
+ val binding: String,
+ val isbn: String,
+ val isbn10: String
+)
+
+data class DimensionsStructured(
+ val length: Dimension,
+ val width: Dimension,
+ val weight: Dimension,
+ val height: Dimension
+)
+
+data class Dimension(
+ val unit: String,
+ val value: Double
 )

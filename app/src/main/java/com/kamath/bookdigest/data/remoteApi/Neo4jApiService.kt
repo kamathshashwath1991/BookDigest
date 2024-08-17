@@ -1,7 +1,8 @@
 package com.kamath.bookdigest.data.remoteApi
 
-import com.kamath.bookdigest.data.model.BookNeo
+import BookNeo
 import com.kamath.bookdigest.data.model.Genre
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

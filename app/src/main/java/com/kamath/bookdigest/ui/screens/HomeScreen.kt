@@ -1,4 +1,5 @@
 package com.kamath.bookdigest.ui.screens
+import BookNeo
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -18,7 +19,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kamath.bookdigest.data.model.BookNeo
 import com.kamath.bookdigest.data.model.Genre
 import com.kamath.bookdigest.ui.screens.common.BookCard
 import com.kamath.bookdigest.ui.screens.common.GenreCard

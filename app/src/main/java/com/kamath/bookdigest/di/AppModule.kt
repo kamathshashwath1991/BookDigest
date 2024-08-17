@@ -1,5 +1,5 @@
 package com.kamath.bookdigest.di
-import com.google.gson.Gson
+
 import com.google.gson.GsonBuilder
 import com.kamath.bookdigest.data.remoteApi.IsbnApiService
 import com.kamath.bookdigest.data.remoteApi.Neo4jApiService
@@ -56,8 +56,9 @@ object AppModule {
     @Singleton
     @Named("neo4jRetrofit")
     fun provideNeo4jRetrofit(okHttpClient: OkHttpClient): Retrofit {
+
         return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:3000/") // Adjust the base URL as needed
+            .baseUrl("http://10.0.2.2:3000/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -83,9 +84,9 @@ object AppModule {
     @Singleton
     fun provideHomeScreenRepository(neo4jApiService: Neo4jApiService) = HomeScreenRepository(neo4jApiService)
 
-    @Provides
-    fun provideGson(): Gson {
-        return GsonBuilder().create()
-    }
+//    @Provides
+//    fun provideGson(): Gson {
+//        return GsonBuilder().create()
+//    }
 
 }

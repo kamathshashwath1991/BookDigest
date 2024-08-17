@@ -1,11 +1,11 @@
 package com.kamath.bookdigest.viewModels
 
+import BookNeo
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kamath.bookdigest.data.model.BookNeo
 import com.kamath.bookdigest.data.model.Genre
 import com.kamath.bookdigest.repository.HomeScreenRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

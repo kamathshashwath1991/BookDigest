@@ -72,7 +72,7 @@ fun ScanBarcode(
                 ),
                 onClick = {
                     scope.launch {
-                        booksViewModel.createBook()
+                        //booksViewModel.createBook()
                     }
                 }) {
                 Text(

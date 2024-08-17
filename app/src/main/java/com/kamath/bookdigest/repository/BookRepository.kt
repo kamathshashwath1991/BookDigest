@@ -1,9 +1,9 @@
 package com.kamath.bookdigest.repository
 
+import BookNeo
 import android.util.Log
 import android.widget.Toast
 import com.kamath.bookdigest.data.model.BookDetailsResponse
-import com.kamath.bookdigest.data.model.BookNeo
 import com.kamath.bookdigest.data.remoteApi.IsbnApiService
 import com.kamath.bookdigest.data.remoteApi.Neo4jApiService
 import javax.inject.Inject
