@@ -1,6 +1,7 @@
 package com.kamath.bookdigest.ui.screens.common
 
 import BookNeo
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,11 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BookCard(book: BookNeo) {
+fun BookCard(book: BookNeo,onBookClick: (BookNeo) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable{ onBookClick(book) },
         elevation = CardDefaults.cardElevation(),
         shape = RoundedCornerShape(8.dp)
     ) {
@@ -31,10 +33,6 @@ fun BookCard(book: BookNeo) {
         ) {
             Text(text = book.name, style = MaterialTheme.typography.titleMedium)
             Spacer(modifier = Modifier.height(4.dp))
-//            Text(
-//                text = "Original Cost: \$${book.originalCost}",
-//                style = MaterialTheme.typography.bodySmall
-//            )
         }
     }
 }
