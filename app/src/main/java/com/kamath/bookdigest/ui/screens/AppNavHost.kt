@@ -25,9 +25,11 @@ fun AppNavHost(navController: NavHostController = rememberNavController()) {
                 barcodeValue = barcodeScanner.barCodeResults.collectAsStateWithLifecycle().value
             )
         }
+        composable("account") {
+            AccountScreen()
+        }
         composable("bookDetails/{isbn}") { backStackEntry ->
             val bookId = backStackEntry.arguments?.getString("isbn")
-            // You would fetch the book based on the bookId, but for now, you can pass it directly
             BookDetailsScreen(navController,bookId = bookId)
         }
     }

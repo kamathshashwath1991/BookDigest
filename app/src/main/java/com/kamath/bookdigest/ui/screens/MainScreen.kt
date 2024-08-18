@@ -71,6 +71,7 @@ fun MainScreen() {
                         when (index) {
                             0 -> navController.navigate("home")
                             2 -> navController.navigate("scan")
+                            3 -> navController.navigate("account")
                             else -> navController.navigate("home")
                         }
                     },
