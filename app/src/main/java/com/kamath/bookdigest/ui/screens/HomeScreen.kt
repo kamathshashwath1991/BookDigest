@@ -1,6 +1,5 @@
 package com.kamath.bookdigest.ui.screens
 import BookNeo
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,20 +11,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.kamath.bookdigest.viewModels.HomeScreenViewModel
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.kamath.bookdigest.data.model.Genre
 import com.kamath.bookdigest.ui.screens.common.BookCard
 import com.kamath.bookdigest.ui.screens.common.GenreCard
+import com.kamath.bookdigest.viewModels.HomeScreenViewModel
 
 
 @Composable
-fun HomeScreen(){
+fun HomeScreen(navController: NavHostController){
     val TAG = "HomeScreen"
     val viewModel:HomeScreenViewModel = hiltViewModel()
     val booksLiveData = viewModel._getBooksLiveData
@@ -75,7 +75,12 @@ fun HomeScreen(){
         )
         LazyColumn {
             items(books.value.size) {
-                BookCard(book = books.value[it])
+                BookCard(
+                    book = books.value[it],
+                    onBookClick = { book ->
+                        navController.navigate("bookDetails/${book.isbn}") // Navigate to book details
+                    }
+                )
             }
         }
     }

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Feed
@@ -21,89 +20,64 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.kamath.bookdigest.ui.screens.common.TabItem
-import com.kamath.bookdigest.utility.BarcodeScanner
-import com.kamath.bookdigest.utility.ScanBarcode
-import com.kamath.bookdigest.viewModels.BooksViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MainScreen(){
+fun MainScreen() {
+    val navController = rememberNavController()
 
-    val tabItems = listOf<TabItem>(
+    val tabItems = listOf(
         TabItem(title = "Home", unselectedItem = Icons.Outlined.Home, selectedItem = Icons.Filled.Home),
         TabItem(title = "Thread", unselectedItem = Icons.AutoMirrored.Outlined.Feed, selectedItem = Icons.AutoMirrored.Filled.Feed),
         TabItem(title = "Sell", unselectedItem = Icons.Outlined.Camera, selectedItem = Icons.Filled.Camera),
         TabItem(title = "Account", unselectedItem = Icons.Outlined.AccountCircle, selectedItem = Icons.Filled.AccountCircle)
-
     )
-    val barcodeScanner = BarcodeScanner(LocalContext.current)
 
+    var selectedTabIndex by remember { mutableIntStateOf(0) }
+
+    // State to manage pager
+    val pagerState = rememberPagerState { tabItems.size }
+
+    // Column to manage layout
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
     ) {
-        var selectedTabIndex by remember {
-            mutableIntStateOf(0)
-        }
-        val pagerState = rememberPagerState {
-            tabItems.size
-        }
-
-        LaunchedEffect(selectedTabIndex){
-            pagerState.animateScrollToPage(selectedTabIndex)
-        }
-        LaunchedEffect(pagerState.currentPage,pagerState.isScrollInProgress){
-            if (!pagerState.isScrollInProgress){
-                selectedTabIndex = pagerState.currentPage
-            }
-        }
-        HorizontalPager(
-            state = pagerState,
+        Box(
             modifier = Modifier
-                .fillMaxSize()
-                .weight(1f)) {index ->
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ){
-                when (index) {
-                    0 -> HomeScreen()
-                    2 -> ScanBarcode(
-                        onScanBarcode = { barcodeScanner.startScan() },
-                        barcodeValue = barcodeScanner.barCodeResults.collectAsStateWithLifecycle().value
-                    )
-                    else -> Text(tabItems[index].title)
-                }
-            }
-
+                .weight(1f)
+        ) {
+            AppNavHost(navController = navController)
         }
-        TabRow(selectedTabIndex = selectedTabIndex) {
+
+        // TabRow at the bottom
+        TabRow(
+            selectedTabIndex = selectedTabIndex,
+            modifier = Modifier.padding(top = 8.dp) // Add padding if needed
+        ) {
             tabItems.forEachIndexed { index, tabItem ->
                 Tab(
                     selected = index == selectedTabIndex,
                     onClick = {
                         selectedTabIndex = index
-
+                        when (index) {
+                            0 -> navController.navigate("home")
+                            2 -> navController.navigate("scan")
+                            else -> navController.navigate("home")
+                        }
                     },
-                    text = { Text(text = tabItem.title)},
+                    text = { Text(text = tabItem.title) },
                     icon = {
                         Icon(
-                            imageVector = if (index == selectedTabIndex){
+                            imageVector = if (index == selectedTabIndex) {
                                 tabItem.selectedItem
                             } else {
                                 tabItem.unselectedItem
