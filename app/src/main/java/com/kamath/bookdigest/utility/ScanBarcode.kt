@@ -44,7 +44,8 @@ fun ScanBarcode(
     val scope = rememberCoroutineScope()
     val booksViewModel: BooksViewModel = hiltViewModel()
     val bookDetails = booksViewModel.bookDetailLiveData.observeAsState()
-    val book = bookDetails.value
+    val bookDetailsValue = bookDetails.value
+    val book = bookDetailsValue?.book
     val textFieldValue = remember { mutableStateOf(TextFieldValue()) }
 
     if (barcodeValue != null) {
@@ -122,78 +123,6 @@ fun ScanBarcode(
             }
             item {
                 Text(text = book.title ?: "Unknown Title")
-            }
-            item {
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-            item {
-                Text(text = book.publisher ?: "Unknown Publisher")
-            }
-            item {
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-            item {
-                Text(text = book.language ?: "Unknown Language")
-            }
-            item {
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-            item {
-                Text(text = book.datePublished ?: "Unknown Date")
-            }
-            item {
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-            item {
-                Text(text = book.pages.toString() ?: "Unknown Pages")
-            }
-            item {
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-            item {
-                Text(text = book.binding ?: "Unknown Binding")
-            }
-            item {
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-            item {
-                Text(text = book.isbn ?: "Unknown ISBN")
-            }
-            item {
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-            item {
-                Text(text = book.isbn13 ?: "Unknown ISBN13")
-            }
-            item {
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-            item {
-                Text(text = book.msrp ?: "Unknown MSRP")
-            }
-            item {
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-            item {
-                Text(text = book.msrp ?: "Unknown MSRP")
-            }
-            item {
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-            item {
-                Text(text = book.msrp ?: "Unknown MSRP")
-            }
-            item {
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-            item {
-                Text(text = book.msrp ?: "Unknown MSRP")
-            }
-            item {
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-            item {
-                Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.kamath.bookdigest.ui.screens.common
 
-import Book
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,9 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.kamath.bookdigest.data.model.BookDetailsResponse
 
 @Composable
-fun BookDetails(book:Book){
+fun BookDetails(book: BookDetailsResponse){
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -26,7 +26,7 @@ fun BookDetails(book:Book){
         ) {
             Text(text = "Is this the book you scanned?")
             Spacer(modifier = Modifier.height(8.dp))
-            CoilImage(url = book.image!!)
+            CoilImage(url = book.book.image!!)
 //            Card(
 //                modifier = Modifier.fillMaxWidth(),
 //                elevation = CardDefaults.cardElevation()

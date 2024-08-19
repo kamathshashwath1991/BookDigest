@@ -1,28 +1,38 @@
+package com.kamath.bookdigest.data.model
+
+data class BookDetailsResponse(
+    val book: Book
+)
+
 data class Book(
     val publisher: String?,
-    val synopsis: String?,
     val language: String?,
     val image: String?,
-    val titleLong: String?,
-    val edition: String?,
+    val title_long: String?,
     val dimensions: String?,
-    val dimensionsStructured: DimensionsStructured?,
+    val dimensions_structured: Dimensions?,
     val pages: Int?,
-    val datePublished: String?,
-    val subjects: List<String>?,
+    val date_published: String?,
     val authors: List<String>?,
     val title: String?,
     val isbn13: String?,
-    val msrp: String,
+    val msrp: String?,
     val binding: String?,
-    val related: Related?,
     val isbn: String?,
     val isbn10: String?,
-    val otherIsbns: List<OtherIsbn>?
+    val other_isbns: List<OtherIsbn>?
 )
 
-data class Related(
-    val ePub: String?
+data class Dimensions(
+    val length: DimensionItem?,
+    val width: DimensionItem?,
+    val weight: DimensionItem?,
+    val height: DimensionItem?
+)
+
+data class DimensionItem(
+    val unit: String?,
+    val value: Double?
 )
 
 data class OtherIsbn(

@@ -1,8 +1,8 @@
 package com.kamath.bookdigest.repository
 
-import Book
 import BookNeo
 import android.util.Log
+import com.kamath.bookdigest.data.model.BookDetailsResponse
 import com.kamath.bookdigest.data.remoteApi.IsbnApiService
 import com.kamath.bookdigest.data.remoteApi.Neo4jApiService
 import retrofit2.Response
@@ -16,9 +16,9 @@ class BookRepository @Inject constructor(
 ) {
     private val TAG = "BOOK_REPOSITORY"
 
-    suspend fun getBookDetails(isbn: String): Book? {
+    suspend fun getBookDetails(isbn: String): BookDetailsResponse? {
         try {
-            val response: Response<Book> = isbnApiService.getBookDetails(isbn)
+            val response: Response<BookDetailsResponse> = isbnApiService.getBookDetails(isbn)
             if (response.isSuccessful) {
                 val bookDetails = response.body()
                 Log.d(TAG, "getBookDetails successful: $bookDetails")
