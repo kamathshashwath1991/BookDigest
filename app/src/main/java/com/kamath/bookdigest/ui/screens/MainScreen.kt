@@ -27,7 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.kamath.bookdigest.ui.screens.common.TabItem
+import com.kamath.bookdigest.data.model.TabItem
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

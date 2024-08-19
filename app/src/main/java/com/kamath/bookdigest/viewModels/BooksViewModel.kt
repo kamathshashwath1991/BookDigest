@@ -1,11 +1,11 @@
 package com.kamath.bookdigest.viewModels
 
+import Book
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kamath.bookdigest.data.model.BookDetailsResponse
 import com.kamath.bookdigest.repository.BookRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,8 +15,8 @@ import javax.inject.Inject
 class BooksViewModel @Inject constructor(private val bookRepository: BookRepository):ViewModel(){
 
     private val TAG = "BOOKS_VIEW_MODEL"
-    private val _bookDetailsLiveData = MutableLiveData<BookDetailsResponse?>()
-    val bookDetailLiveData: LiveData<BookDetailsResponse?> get() = _bookDetailsLiveData
+    private val _bookDetailsLiveData = MutableLiveData<Book?>()
+    val bookDetailLiveData: LiveData<Book?> get() = _bookDetailsLiveData
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData:LiveData<String> get() = _errorLiveData
 

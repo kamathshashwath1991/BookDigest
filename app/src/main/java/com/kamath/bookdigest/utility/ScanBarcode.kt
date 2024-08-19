@@ -1,26 +1,41 @@
-package com.kamath.bookdigest.utility
-import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.QrCodeScanner
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.lerp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.kamath.bookdigest.ui.screens.common.BookDetails
+import coil.compose.rememberImagePainter
 import com.kamath.bookdigest.viewModels.BooksViewModel
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScanBarcode(
     onScanBarcode: suspend () -> Unit,
@@ -28,61 +43,158 @@ fun ScanBarcode(
 ) {
     val scope = rememberCoroutineScope()
     val booksViewModel: BooksViewModel = hiltViewModel()
-    // Observe bookDetailsLiveData
     val bookDetails = booksViewModel.bookDetailLiveData.observeAsState()
-    val book = bookDetails.value?.book
-    val showButton = book?.title.isNullOrEmpty()
+    val book = bookDetails.value
+    val textFieldValue = remember { mutableStateOf(TextFieldValue()) }
 
     if (barcodeValue != null) {
         LaunchedEffect(barcodeValue) {
-            Log.d("TEST", "ScanBarcode: ")
-            booksViewModel.searchBookByIsbn(barcodeValue)
+            barcodeValue.let {
+                textFieldValue.value = TextFieldValue(it)
+                booksViewModel.searchBookByIsbn(it)
+            }
         }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
+    val scrollState = rememberLazyListState()
+
+    LazyColumn(
+        state = scrollState,
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Top,
+        contentPadding = PaddingValues(16.dp)
     ) {
-        if (showButton){
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth(.85f),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Black
-                ),
-                onClick = {
-                    scope.launch {
-                        onScanBarcode()
+        item {
+            TextField(
+                value = textFieldValue.value,
+                onValueChange = {
+                    textFieldValue.value = it
+                },
+                placeholder = {
+                    Text("Scan Barcode")
+                },
+                leadingIcon = {
+                    IconButton(
+                        onClick = {
+                            scope.launch {
+                                onScanBarcode()
+                            }
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.QrCodeScanner,
+                            contentDescription = "Scan Barcode"
+                        )
                     }
-                }) {
-                Text(
-                    text = "Scan Barcode",
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.displayMedium,
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = Color.Transparent
+                ),
+                readOnly = true
+            )
+        }
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+        book?.let {
+            item {
+                val imageSize by remember {
+                    derivedStateOf {
+                        lerp(200.dp, 100.dp, scrollState.firstVisibleItemScrollOffset / 600f)
+                    }
+                }
+                Image(
+                    painter = rememberImagePainter(book.image),
+                    contentDescription = "Book Image",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(imageSize)
+                        .graphicsLayer {
+                            scaleX = 1f
+                            scaleY = 1f
+                        }
                 )
             }
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth(.85f),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Black
-                ),
-                onClick = {
-                    scope.launch {
-                        //booksViewModel.createBook()
-                    }
-                }) {
-                Text(
-                    text = "Post",
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.displayMedium,
-                )
+            item{
+                Spacer(modifier = Modifier.height(16.dp))
             }
-        }else{
-            BookDetails(book = book!!)
+            item {
+                Text(text = book.title ?: "Unknown Title")
+            }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+            item {
+                Text(text = book.publisher ?: "Unknown Publisher")
+            }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+            item {
+                Text(text = book.language ?: "Unknown Language")
+            }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+            item {
+                Text(text = book.datePublished ?: "Unknown Date")
+            }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+            item {
+                Text(text = book.pages.toString() ?: "Unknown Pages")
+            }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+            item {
+                Text(text = book.binding ?: "Unknown Binding")
+            }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+            item {
+                Text(text = book.isbn ?: "Unknown ISBN")
+            }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+            item {
+                Text(text = book.isbn13 ?: "Unknown ISBN13")
+            }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+            item {
+                Text(text = book.msrp ?: "Unknown MSRP")
+            }
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+            item {
+                Text(text = book.msrp ?: "Unknown MSRP")
+            }
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+            item {
+                Text(text = book.msrp ?: "Unknown MSRP")
+            }
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+            item {
+                Text(text = book.msrp ?: "Unknown MSRP")
+            }
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
         }
     }
 }
