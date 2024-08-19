@@ -16,5 +16,4 @@ class AuthInterceptor @Inject constructor(private val apiKey: String):Intercepto
             .build()
         return chain.proceed(modifiedRequest)
     }
-
 }

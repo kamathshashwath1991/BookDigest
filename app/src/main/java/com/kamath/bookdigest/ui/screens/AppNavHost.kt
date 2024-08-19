@@ -12,8 +12,8 @@ import com.kamath.bookdigest.ui.screens.common.BookDetailsScreen
 import com.kamath.bookdigest.utility.BarcodeScanner
 
 @Composable
-fun AppNavHost(navController: NavHostController = rememberNavController()) {
-    val barcodeScanner = BarcodeScanner(LocalContext.current)
+fun AppNavHost(navController: NavHostController = rememberNavController(), barcodeScanner: BarcodeScanner) {
+
 
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {

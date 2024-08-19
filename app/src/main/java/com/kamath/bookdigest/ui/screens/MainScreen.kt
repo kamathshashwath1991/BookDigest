@@ -23,11 +23,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.kamath.bookdigest.data.model.TabItem
+import com.kamath.bookdigest.utility.BarcodeScanner
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -45,6 +49,9 @@ fun MainScreen() {
 
     // State to manage pager
     val pagerState = rememberPagerState { tabItems.size }
+    val context = LocalContext.current
+    val barcodeScanner = remember { BarcodeScanner(context) }
+    val scope = rememberCoroutineScope()
 
     // Column to manage layout
     Column(
@@ -55,7 +62,7 @@ fun MainScreen() {
             modifier = Modifier
                 .weight(1f)
         ) {
-            AppNavHost(navController = navController)
+            AppNavHost(navController = navController, barcodeScanner = barcodeScanner,)
         }
 
         // TabRow at the bottom
@@ -70,7 +77,12 @@ fun MainScreen() {
                         selectedTabIndex = index
                         when (index) {
                             0 -> navController.navigate("home")
-                            2 -> navController.navigate("scan")
+                            2 -> {
+                                navController.navigate("scan")
+                                scope.launch {
+                                    barcodeScanner.startScan()
+                                }
+                            }
                             3 -> navController.navigate("account")
                             else -> navController.navigate("home")
                         }
