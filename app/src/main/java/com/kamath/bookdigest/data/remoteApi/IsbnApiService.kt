@@ -9,5 +9,4 @@ interface IsbnApiService {
     suspend fun getBookDetails(
         @Path("isbn") isbn: String
     ): Response<BookDetailsResponse>
-
 }

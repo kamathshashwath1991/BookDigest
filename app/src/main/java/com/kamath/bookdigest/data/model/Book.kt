@@ -7,6 +7,7 @@ data class BookDetailsResponse(
 data class Book(
     val publisher: String?,
     val language: String?,
+    val synopsis: String?,
     val image: String?,
     val title_long: String?,
     val dimensions: String?,
@@ -39,5 +40,3 @@ data class OtherIsbn(
     val isbn: String?,
     val binding: String?
 )
-
-

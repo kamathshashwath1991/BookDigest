@@ -1,4 +1,4 @@
-package com.kamath.bookdigest.ui.screens.common
+package com.kamath.bookdigest.data.model
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

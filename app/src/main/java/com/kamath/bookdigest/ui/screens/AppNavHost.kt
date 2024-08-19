@@ -1,5 +1,6 @@
 package com.kamath.bookdigest.ui.screens
 
+import ScanBarcode
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -9,11 +10,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.kamath.bookdigest.ui.screens.common.BookDetailsScreen
 import com.kamath.bookdigest.utility.BarcodeScanner
-import com.kamath.bookdigest.utility.ScanBarcode
 
 @Composable
-fun AppNavHost(navController: NavHostController = rememberNavController()) {
-    val barcodeScanner = BarcodeScanner(LocalContext.current)
+fun AppNavHost(navController: NavHostController = rememberNavController(), barcodeScanner: BarcodeScanner) {
+
 
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {

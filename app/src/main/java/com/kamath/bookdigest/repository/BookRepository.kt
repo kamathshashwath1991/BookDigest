@@ -2,13 +2,12 @@ package com.kamath.bookdigest.repository
 
 import BookNeo
 import android.util.Log
-import android.widget.Toast
 import com.kamath.bookdigest.data.model.BookDetailsResponse
 import com.kamath.bookdigest.data.remoteApi.IsbnApiService
 import com.kamath.bookdigest.data.remoteApi.Neo4jApiService
+import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
-import retrofit2.Response
 
 @Singleton
 class BookRepository @Inject constructor(
