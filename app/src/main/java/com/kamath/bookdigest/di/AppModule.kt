@@ -1,10 +1,11 @@
 package com.kamath.bookdigest.di
 
-import com.google.gson.GsonBuilder
+import androidx.navigation.NavHostController
 import com.kamath.bookdigest.data.remoteApi.IsbnApiService
 import com.kamath.bookdigest.data.remoteApi.Neo4jApiService
 import com.kamath.bookdigest.repository.BookRepository
 import com.kamath.bookdigest.repository.HomeScreenRepository
+import com.kamath.bookdigest.viewModels.NavControllerHolder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -84,9 +85,9 @@ object AppModule {
     @Singleton
     fun provideHomeScreenRepository(neo4jApiService: Neo4jApiService) = HomeScreenRepository(neo4jApiService)
 
-//    @Provides
-//    fun provideGson(): Gson {
-//        return GsonBuilder().create()
-//    }
-
+    @Singleton
+    @Provides
+    fun provideNavControllerHolder(): NavControllerHolder {
+        return NavControllerHolder()
+    }
 }
