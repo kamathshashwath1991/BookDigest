@@ -21,6 +21,7 @@ fun AppNavHost(navController: NavHostController = rememberNavController(), barco
         }
         composable("scan") {
             ScanBarcode(
+                navController = navController,
                 onScanBarcode = { barcodeScanner.startScan() },
                 barcodeValue = barcodeScanner.barCodeResults.collectAsStateWithLifecycle().value
             )
@@ -31,6 +32,9 @@ fun AppNavHost(navController: NavHostController = rememberNavController(), barco
         composable("bookDetails/{isbn}") { backStackEntry ->
             val bookId = backStackEntry.arguments?.getString("isbn")
             BookDetailsScreen(navController,bookId = bookId)
+        }
+        composable("sell") {
+            SellScreen()
         }
     }
 }

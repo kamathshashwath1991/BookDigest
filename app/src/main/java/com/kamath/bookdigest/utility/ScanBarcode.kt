@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
 import com.kamath.bookdigest.ui.screens.common.Accordion
 import com.kamath.bookdigest.viewModels.BooksViewModel
@@ -24,6 +25,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScanBarcode(
+    navController: NavHostController,
     onScanBarcode: suspend () -> Unit,
     barcodeValue: String?
 ) {
@@ -136,7 +138,8 @@ fun ScanBarcode(
         // Floating Action Button
         FloatingActionButton(
             onClick = {
-                Toast.makeText(context, "Book has been added!!", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "Book has been added!!", Toast.LENGTH_SHORT).show()
+                navController.navigate("sell")
             },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
