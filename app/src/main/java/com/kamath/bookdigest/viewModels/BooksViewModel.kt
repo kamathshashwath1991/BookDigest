@@ -1,5 +1,6 @@
 package com.kamath.bookdigest.viewModels
 
+import BookNeo
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -37,26 +38,15 @@ class BooksViewModel @Inject constructor(private val bookRepository: BookReposit
             }
         }
     }
-/*
-    fun createBook(){
+
+    fun postBook(book:BookNeo){
         viewModelScope.launch {
             try{
-                val book = BookNeo(
-                    title = "To Kill a Mockingbird",
-                    author = "Harper Lee",
-                    year = "1960",
-                    genre = "Fiction",
-                    pages = "281",
-                    isbn = "9780061120084",
-                    publishedDate = "1960-07-11",
-                    originalCost = "12.95"
-                )
                 bookRepository.createBook(book).let { Log.d(TAG, "createBook: Book is posted!") }
             }catch (e:Exception){
                 Log.e(TAG, "createBook: Issue while creating book" )
+                _errorLiveData.value = "Failed to post book: ${e.message}"
             }
         }
     }
-
- */
 }
