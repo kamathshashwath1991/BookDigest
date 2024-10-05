@@ -34,10 +34,10 @@ class BookRepository @Inject constructor(
 
     suspend fun createBook(book: BookNeo){
         try {
-            val response = neo4jApiService.createBook(book)
+            val response = neo4jApiService.postBook(book)
             if (response.isSuccessful) {
                 // Response is successful, extract and return the response body
-                Log.d(TAG, "API call is successful:")
+                Log.d(TAG, "API call for POST is successful:")
             }
         } catch (e: Exception) {
             // Exception occurred, log the error

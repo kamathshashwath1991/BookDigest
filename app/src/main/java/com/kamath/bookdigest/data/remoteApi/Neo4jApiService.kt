@@ -9,8 +9,8 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface Neo4jApiService {
-    @POST("createBook")
-    suspend fun createBook(@Body book: BookNeo): Response<List<String>>
+    @POST("postBook")
+    suspend fun postBook(@Body book: BookNeo): Response<List<String>>
     @GET("books")
     suspend fun getAllBooks():Response<List<BookNeo>>
     @GET("genres")

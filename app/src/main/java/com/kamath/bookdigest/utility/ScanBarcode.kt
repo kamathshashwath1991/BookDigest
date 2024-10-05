@@ -73,7 +73,7 @@ fun ScanBarcode(
                             }
                         },
                         modifier = Modifier.fillMaxWidth(),
-                        colors = TextFieldDefaults.textFieldColors(containerColor = Color.Transparent),
+                        //colors = TextFieldDefaults.textFieldColors(containerColor = Color.Transparent),
                         readOnly = true
                     )
                 }
@@ -139,6 +139,9 @@ fun ScanBarcode(
         FloatingActionButton(
             onClick = {
                 //Toast.makeText(context, "Book has been added!!", Toast.LENGTH_SHORT).show()
+                book?.let {
+
+                }
                 navController.navigate("sell")
             },
             modifier = Modifier
