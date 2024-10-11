@@ -1,8 +1,8 @@
 package com.kamath.bookdigest.ui.screens
 
+import AccountScreen
 import ScanBarcode
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -27,7 +27,19 @@ fun AppNavHost(navController: NavHostController = rememberNavController(), barco
             )
         }
         composable("account") {
-            AccountScreen()
+            AccountScreen(
+                name = "Your Name",
+                username = "yourusername",
+                bio = "Your bio here",
+                bookListed = 100,
+                following = 200,
+                followers = 300,
+                currentBook = "Current Book Title",
+                booksReadThisYear = 15,
+                yearlyGoal = 50,
+                recentActivities = listOf("Added Book X", "Finished Book Y", "Wrote review for Book Z"),
+                favoriteGenres = listOf("Science Fiction", "Mystery", "Fantasy")
+            )
         }
         composable("bookDetails/{isbn}") { backStackEntry ->
             val bookId = backStackEntry.arguments?.getString("isbn")
